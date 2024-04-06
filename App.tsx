@@ -1,12 +1,18 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-
+import React, { useState } from 'react';
+import { SafeAreaView, Text } from 'react-native';
+import AuthNavigator from './src/navigators/AuthNavigator';
+import { NavigationContainer } from '@react-navigation/native';
+import SplashScreen from './src/screens/SplashScreen';
 const App = () => {
-  return (
-    <View>
-      <Text>App</Text>
-    </View>
-  )
-}
+  const [isShowSplash, setIsShowSplash] = useState<boolean>(true);
 
-export default App
+  return isShowSplash ? (
+    <SplashScreen />
+  ) : (
+    <NavigationContainer>
+      <AuthNavigator />
+    </NavigationContainer>
+  );
+};
+
+export default App;
