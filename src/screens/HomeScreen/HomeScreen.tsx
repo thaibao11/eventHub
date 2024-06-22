@@ -1,11 +1,13 @@
-import { View, Text } from 'react-native';
+import { View, Text, Button, SafeAreaView } from 'react-native';
 import React from 'react';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const HomeScreen = () => {
   return (
-    <View>
+    <SafeAreaView>
       <Text>HomeScreen</Text>
-    </View>
+      <Button onPress={() => AsyncStorage.clear()} title="Logout" />
+    </SafeAreaView>
   );
 };
 

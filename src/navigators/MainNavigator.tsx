@@ -6,7 +6,7 @@ import TabNavigator from './TabNavigator';
 const MainNavigator = () => {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tab" component={TabNavigator} />
     </Stack.Navigator>
   );

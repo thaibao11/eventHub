@@ -7,4 +7,6 @@ export type RootStackNavigator = {
 
 export type AuthStackNavigator = {
   Login: undefined;
+  OnBoarding: undefined;
+  SignIn: undefined;
 };
