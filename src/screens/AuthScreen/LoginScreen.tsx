@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import { Image, SafeAreaView, StyleSheet, Text, View, Switch } from 'react-native';
-import InputComponent from '../../components/InputComponent';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { ArrowRight, Lock, Sms } from 'iconsax-react-native';
+import React, { useState } from 'react';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { images } from '../../assets/images/images';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from '@react-navigation/native';
+import InputComponent from '../../components/InputComponent';
 import { AuthStackNavigator } from '../../type/navigation';
 
 const LoginScreen = () => {

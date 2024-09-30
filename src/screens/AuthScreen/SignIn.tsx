@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Lock, Sms, User } from 'iconsax-react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { AuthStackNavigator } from '../../type/navigation';
 import InputComponent from '../../components/InputComponent';
+import { useRegister } from '../../hook/useRegister';
 
 const SignIn = () => {
   const navigation = useNavigation<NavigationProp<AuthStackNavigator>>();
@@ -11,7 +12,20 @@ const SignIn = () => {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [confirm, setConfirm] = useState<string>('');
+  const { mutateAsync: onRegister } = useRegister();
 
+  const handleRegister = async () => {
+    try {
+      const res = await onRegister({
+        name: name,
+        email: email,
+        password: password,
+        confirmPassword: confirm,
+      });
+    } catch (err) {
+      console.log('err', err);
+    }
+  };
   return (
     <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -50,7 +64,7 @@ const SignIn = () => {
       />
       <View style={{ width: '100%', justifyContent: 'center', flexDirection: 'row' }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => handleRegister()}
           style={{
             backgroundColor: '#3D56F0',
             width: '70%',

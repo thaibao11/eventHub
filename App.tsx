@@ -5,6 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from './src/screens/SplashScreen';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import MainNavigator from './src/navigators/MainNavigator';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   const [isShowSplash, setIsShowSplash] = useState<boolean>(false);
@@ -21,10 +24,16 @@ const App = () => {
     token && setAccessToken(token);
   };
 
-  return isShowSplash ? (
-    <SplashScreen />
-  ) : (
-    <NavigationContainer>{accessToken ? <MainNavigator /> : <AuthNavigator />}</NavigationContainer>
+  return (
+    <QueryClientProvider client={queryClient}>
+      {isShowSplash ? (
+        <SplashScreen />
+      ) : (
+        <NavigationContainer>
+          {accessToken ? <MainNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      )}
+    </QueryClientProvider>
   );
 };
 

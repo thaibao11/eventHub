@@ -43,11 +43,13 @@ const InputComponent = (props: Props) => {
       />
       {suffix ?? suffix}
       <TouchableOpacity onPress={onPress}>
-        {isPassword ? (
+        {isPassword && <EyeSlash size={20} color="black" />}
+
+        {/* {isPassword ? (
           <EyeSlash size={20} color="black" />
         ) : (
           value.length > 0 && <Icon name="close" size={20} color="#111" />
-        )}
+        )} */}
       </TouchableOpacity>
     </View>
   );
