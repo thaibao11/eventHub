@@ -9,4 +9,6 @@ export type AuthStackNavigator = {
   Login: undefined;
   OnBoarding: undefined;
   SignIn: undefined;
+  Home: undefined;
+  ResetPassword: undefined;
 };

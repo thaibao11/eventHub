@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RootStackNavigator } from '../type/navigation';
+import { RootStackNavigator } from '../types/navigation';
 import { HomeScreen } from '../screens';
 
 const TabNavigator = () => {

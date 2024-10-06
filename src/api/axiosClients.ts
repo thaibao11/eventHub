@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 export interface ApiResponse<T> {
   data: T;
@@ -36,8 +36,7 @@ axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;
   },
-  (error: AxiosResponse) => {
-    console.log('-----error', error.status);
+  (error: AxiosError) => {
     if (error.status && error.status === 401) {
     }
     return Promise.reject(error);

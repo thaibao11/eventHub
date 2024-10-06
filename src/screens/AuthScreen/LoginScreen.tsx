@@ -12,7 +12,13 @@ import {
 } from 'react-native';
 import { images } from '../../assets/images/images';
 import InputComponent from '../../components/InputComponent';
-import { AuthStackNavigator } from '../../type/navigation';
+import { AuthStackNavigator } from '../../types/navigation';
+import { useDispatch, useSelector, UseSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { useLogin } from '../../hook/useLogin';
+import IconLoading from '../../components/IconLoading';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setAccessToken } from '../../redux/authSlice';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState<string>('');
@@ -20,9 +26,25 @@ const LoginScreen = () => {
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const navigation = useNavigation<NavigationProp<AuthStackNavigator>>();
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const { mutateAsync: getLogin, isLoading } = useLogin();
+  const dispatch = useDispatch();
+
+  const onLogin = async () => {
+    try {
+      const payload = { email, password };
+      const res = await getLogin(payload);
+      if (res) {
+        await AsyncStorage.setItem('accessToken', res?.accessToken ?? '');
+        dispatch(setAccessToken(res.accessToken));
+      }
+    } catch (err) {
+      console.log('err', err);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
+      {isLoading && <IconLoading />}
       <View>
         <Image source={images.icon_home} style={styles.logo} />
       </View>
@@ -62,11 +84,12 @@ const LoginScreen = () => {
           />
           <Text style={{ marginLeft: 10 }}>Remember me</Text>
         </View>
-        <View>
+        <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
           <Text>Forgot password?</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
+        onPress={onLogin}
         style={{
           backgroundColor: '#3D56F0',
           width: '80%',

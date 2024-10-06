@@ -1,12 +1,19 @@
-import { View, Text, Button, SafeAreaView } from 'react-native';
-import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React from 'react';
+import { Button, SafeAreaView, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { clearAccessToken } from '../../redux/authSlice';
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+
+  const onLogout = async () => {
+    await AsyncStorage.clear();
+    dispatch(clearAccessToken(''));
+  };
   return (
     <SafeAreaView>
       <Text>HomeScreen</Text>
-      <Button onPress={() => AsyncStorage.clear()} title="Logout" />
+      <Button onPress={onLogout} title="Logout" />
     </SafeAreaView>
   );
 };

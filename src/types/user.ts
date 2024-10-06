@@ -3,6 +3,8 @@ export interface User {
   name: string;
   username: string;
   email: string;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export interface RegisterRequest {
@@ -10,4 +12,9 @@ export interface RegisterRequest {
   email: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface LoginRequest {
+  email: string;
+  password: string;
 }

@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { register } from '../api/userApi';
-import { RegisterRequest } from '../type/user';
+import { RegisterRequest } from '../types/user';
+import { AxiosError } from 'axios';
 
 export const useRegister = () => {
   return useMutation({
@@ -8,7 +9,11 @@ export const useRegister = () => {
       console.log('useRegister payload: ', JSON.stringify(data));
       return register(data);
     },
-    onSuccess: () => {},
-    onError: () => {},
+    onSuccess: (data) => {
+      console.log('useRegister success: ', JSON.stringify(data));
+    },
+    onError: (err: AxiosError) => {
+      console.log('useRegister error:', err.response);
+    },
   });
 };

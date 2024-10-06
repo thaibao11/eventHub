@@ -2,9 +2,10 @@ import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { ArrowLeft, ArrowRight, Lock, Sms, User } from 'iconsax-react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { AuthStackNavigator } from '../../type/navigation';
+import { AuthStackNavigator } from '../../types/navigation';
 import InputComponent from '../../components/InputComponent';
 import { useRegister } from '../../hook/useRegister';
+import IconLoading from '../../components/IconLoading';
 
 const SignIn = () => {
   const navigation = useNavigation<NavigationProp<AuthStackNavigator>>();
@@ -12,7 +13,7 @@ const SignIn = () => {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [confirm, setConfirm] = useState<string>('');
-  const { mutateAsync: onRegister } = useRegister();
+  const { mutateAsync: onRegister, isLoading } = useRegister();
 
   const handleRegister = async () => {
     try {
@@ -22,6 +23,9 @@ const SignIn = () => {
         password: password,
         confirmPassword: confirm,
       });
+      if (res) {
+        navigation.goBack();
+      }
     } catch (err) {
       console.log('err', err);
     }
@@ -82,6 +86,7 @@ const SignIn = () => {
           </View>
           <ArrowRight size="28" color="#FF8A65" style={{ position: 'absolute', right: 20 }} />
         </TouchableOpacity>
+        {isLoading && <IconLoading />}
       </View>
     </SafeAreaView>
   );

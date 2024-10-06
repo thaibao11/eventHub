@@ -3,37 +3,26 @@ import { SafeAreaView, Text } from 'react-native';
 import AuthNavigator from './src/navigators/AuthNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from './src/screens/SplashScreen';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import MainNavigator from './src/navigators/MainNavigator';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import store, { RootState } from './src/store/store';
+import { Provider, useDispatch } from 'react-redux';
+import { setAccessToken } from './src/redux/authSlice';
+import { useSelector } from 'react-redux';
+import AppRouter from './src/navigators/AppRouter';
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [isShowSplash, setIsShowSplash] = useState<boolean>(false);
-  const [accessToken, setAccessToken] = useState<string>('');
-  const { getItem, setItem } = useAsyncStorage('accessToken');
-
-  useEffect(() => {
-    checkLogin();
-  }, []);
-
-  const checkLogin = async () => {
-    const token = await getItem();
-
-    token && setAccessToken(token);
-  };
-
   return (
-    <QueryClientProvider client={queryClient}>
-      {isShowSplash ? (
-        <SplashScreen />
-      ) : (
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          {accessToken ? <MainNavigator /> : <AuthNavigator />}
+          <AppRouter />
         </NavigationContainer>
-      )}
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </Provider>
   );
 };
 
