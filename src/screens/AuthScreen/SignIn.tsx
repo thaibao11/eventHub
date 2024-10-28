@@ -24,7 +24,9 @@ const SignIn = () => {
         confirmPassword: confirm,
       });
       if (res) {
-        navigation.goBack();
+        navigation.navigate('Verify', {
+          email: res?.email,
+        });
       }
     } catch (err) {
       console.log('err', err);

@@ -10,7 +10,7 @@ export const useRegister = () => {
       return register(data);
     },
     onSuccess: (data) => {
-      console.log('useRegister success: ', JSON.stringify(data));
+      // console.log('useRegister success: ', JSON.stringify(data));
     },
     onError: (err: AxiosError) => {
       console.log('useRegister error:', err.response);

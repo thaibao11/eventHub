@@ -11,4 +11,9 @@ export type AuthStackNavigator = {
   SignIn: undefined;
   Home: undefined;
   ResetPassword: undefined;
+  Verify: VerifyNavigate | undefined;
+};
+
+type VerifyNavigate = {
+  email: string;
 };
