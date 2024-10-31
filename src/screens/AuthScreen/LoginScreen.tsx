@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { ArrowRight, Lock, Sms } from 'iconsax-react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -19,7 +19,13 @@ import { useLogin } from '../../hook/useLogin';
 import IconLoading from '../../components/IconLoading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setAccessToken } from '../../redux/authSlice';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import Config from 'react-native-config';
 
+GoogleSignin.configure({
+  webClientId: Config.WEB_CLIENT_ID,
+  iosClientId: Config.IOS_CLIENT_ID,
+});
 const LoginScreen = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -39,6 +45,24 @@ const LoginScreen = () => {
       }
     } catch (err) {
       console.log('err', err);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log('User Info: ', userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log('User cancelled the login process');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('Signin in progress');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log('Google Play Services not available or outdated');
+      } else {
+        console.log('Some other error happened: ', error);
+      }
     }
   };
 
@@ -111,6 +135,7 @@ const LoginScreen = () => {
         <Text style={{ textTransform: 'uppercase', textAlign: 'center' }}>Or</Text>
       </View>
       <TouchableOpacity
+        onPress={signInWithGoogle}
         style={{
           backgroundColor: 'white',
           width: '80%',
