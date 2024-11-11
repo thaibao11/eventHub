@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import Config from 'react-native-config';
 
 export interface ApiResponse<T> {
   data: T;
@@ -11,7 +12,7 @@ export interface ApiError {
   message: string;
 }
 
-const BASE_URL = 'http://localhost:3002';
+const BASE_URL = `${Config.API_URL}`;
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {

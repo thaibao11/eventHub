@@ -39,7 +39,7 @@ const InputComponent = (props: Props) => {
         style={styles.input}
         placeholder={placeholder ?? ''}
         onChangeText={onChange}
-        secureTextEntry={isPassword}
+        // secureTextEntry={isPassword}
       />
       {suffix ?? suffix}
       <TouchableOpacity onPress={onPress}>

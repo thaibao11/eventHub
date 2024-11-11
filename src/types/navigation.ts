@@ -3,6 +3,7 @@ export type RootStackNavigator = {
   Event: undefined;
   Map: undefined;
   Profile: undefined;
+  Add: undefined;
 };
 
 export type AuthStackNavigator = {
@@ -12,6 +13,10 @@ export type AuthStackNavigator = {
   Home: undefined;
   ResetPassword: undefined;
   Verify: VerifyNavigate | undefined;
+};
+
+export type MainStackNavigator = {
+  EventHomeDetail: undefined;
 };
 
 type VerifyNavigate = {
