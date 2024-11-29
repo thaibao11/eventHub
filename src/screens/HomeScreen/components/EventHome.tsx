@@ -14,6 +14,7 @@ import { colors } from '../../../color/color';
 import { Location } from 'iconsax-react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { MainStackNavigator } from '../../../types/navigation';
+import Geolocation from '@react-native-community/geolocation';
 
 export type EventType = {
   id: string;
@@ -55,6 +56,7 @@ const data: EventType[] = [
 ];
 
 const EventHome = () => {
+  Geolocation.getCurrentPosition((info) => console.log(info));
   const navigation = useNavigation<NavigationProp<MainStackNavigator>>();
   const onNavigate = () => {
     navigation.navigate('EventHomeDetail');

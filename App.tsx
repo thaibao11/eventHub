@@ -11,18 +11,21 @@ import { Provider, useDispatch } from 'react-redux';
 import { setAccessToken } from './src/redux/authSlice';
 import { useSelector } from 'react-redux';
 import AppRouter from './src/navigators/AppRouter';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <NavigationContainer>
-          <AppRouter />
-        </NavigationContainer>
-      </QueryClientProvider>
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <NavigationContainer>
+            <AppRouter />
+          </NavigationContainer>
+        </QueryClientProvider>
+      </Provider>
+    </GestureHandlerRootView>
   );
 };
 
