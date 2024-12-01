@@ -1,7 +1,8 @@
 import React from 'react';
-import { Control, Controller, FieldError, UseFormRegister } from 'react-hook-form';
-import { StyleProp, ViewStyle } from 'react-native';
+import { Control, Controller, FieldError, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 import { Text, TextInputProps, View, StyleSheet, TextInput } from 'react-native';
+import { NewEventType } from '../types/event';
 
 type CustomInputProps = {
   control: Control<any>;
@@ -10,14 +11,33 @@ type CustomInputProps = {
   error?: FieldError;
   style?: StyleProp<ViewStyle>;
   register: UseFormRegister<any>;
+  suffix?: React.ReactNode;
+  prefix?: React.ReactNode;
+  setValue?: UseFormSetValue<NewEventType>;
 } & TextInputProps;
 
 const ControllerInput = (props: CustomInputProps) => {
-  const { control, name, label, value, register, placeholder, style, ...textInputProps } = props;
+  const {
+    control,
+    name,
+    label,
+    value,
+    register,
+    placeholder,
+    style,
+    prefix,
+    suffix,
+    setValue,
+    ...textInputProps
+  } = props;
 
+  const onClearSearch = () => {
+    setValue?.('location', '');
+  };
   return (
     <View>
       {label && <Text style={styles.label}>{label}</Text>}
+      {prefix && <View style={{ position: 'absolute', left: 10, top: 15 }}>{prefix}</View>}
       <Controller
         control={control}
         name={name ?? ''}
@@ -35,6 +55,14 @@ const ControllerInput = (props: CustomInputProps) => {
           />
         )}
       />
+      {suffix && value && (
+        <TouchableOpacity
+          style={{ position: 'absolute', right: 10, top: 15 }}
+          onPress={onClearSearch}
+        >
+          {suffix}
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -51,6 +79,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 14,
-    padding: 15,
+    // padding: 15,
   },
 });

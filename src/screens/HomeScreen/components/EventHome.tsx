@@ -56,7 +56,6 @@ const data: EventType[] = [
 ];
 
 const EventHome = () => {
-  Geolocation.getCurrentPosition((info) => console.log(info));
   const navigation = useNavigation<NavigationProp<MainStackNavigator>>();
   const onNavigate = () => {
     navigation.navigate('EventHomeDetail');

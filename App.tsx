@@ -12,19 +12,22 @@ import { setAccessToken } from './src/redux/authSlice';
 import { useSelector } from 'react-redux';
 import AppRouter from './src/navigators/AppRouter';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PortalProvider } from '@gorhom/portal';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <NavigationContainer>
-            <AppRouter />
-          </NavigationContainer>
-        </QueryClientProvider>
-      </Provider>
+      <PortalProvider>
+        <Provider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <NavigationContainer>
+              <AppRouter />
+            </NavigationContainer>
+          </QueryClientProvider>
+        </Provider>
+      </PortalProvider>
     </GestureHandlerRootView>
   );
 };
