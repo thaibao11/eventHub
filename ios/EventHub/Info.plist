@@ -74,6 +74,10 @@
 	<string>LaunchScreen</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Ứng dụng cần sử dụng vị trí để xác định tọa độ.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Ứng dụng cần truy cập vào thư viện ảnh để tải ảnh</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Ứng dụng cần truy cập camera để tải ảnh</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

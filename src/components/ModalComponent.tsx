@@ -17,10 +17,11 @@ type ModalProps = {
   onDismiss?: () => void;
   sheetHeight: number;
   onConfirm?: () => void;
+  isLocation?: boolean;
 };
 
 const ModalComponent = (props: ModalProps) => {
-  const { visible, children, onDismiss, sheetHeight, onConfirm } = props;
+  const { visible, children, onDismiss, sheetHeight, onConfirm, isLocation } = props;
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const renderBackdrop = useCallback((props: BottomSheetBackdropProps) => {
@@ -49,24 +50,26 @@ const ModalComponent = (props: ModalProps) => {
           snapPoints={sheetHeight ? [sheetHeight] : [600]}
         >
           <BottomSheetView style={styles.contentContainer}>{children}</BottomSheetView>
-          <TouchableOpacity
-            style={{ width: '100%', paddingHorizontal: 40, bottom: 40 }}
-            onPress={onConfirm}
-          >
-            <View
-              style={{
-                backgroundColor: '#3D56F0',
-                justifyContent: 'center',
-                flexDirection: 'row',
-                alignItems: 'center',
-                padding: 12,
-                borderRadius: 30,
-                bottom: 25,
-              }}
+          {isLocation && (
+            <TouchableOpacity
+              style={{ width: '100%', paddingHorizontal: 40, bottom: 40 }}
+              onPress={onConfirm}
             >
-              <Text style={{ color: 'white', marginLeft: 10 }}>Confirm</Text>
-            </View>
-          </TouchableOpacity>
+              <View
+                style={{
+                  backgroundColor: '#3D56F0',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  padding: 12,
+                  borderRadius: 30,
+                  bottom: 25,
+                }}
+              >
+                <Text style={{ color: 'white', marginLeft: 10 }}>Confirm</Text>
+              </View>
+            </TouchableOpacity>
+          )}
         </BottomSheetModal>
       </BottomSheetModalProvider>
     </Portal>

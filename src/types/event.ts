@@ -2,6 +2,8 @@ export type NewEventType = {
   name: string;
   description: string;
   location: string;
+  timeStart: Date;
+  timeEnd: Date;
 };
 
 export type RequestSearchLocation = {
